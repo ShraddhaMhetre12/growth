@@ -1,0 +1,255 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Growth Source Financial Technologies</title>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<style type="text/css">
+
+</style>
+<body style="background-color: #00fff;">
+
+
+	<div class="container-fluid" style="background-color: #dedede">
+		<nav class="navbar navbar-default">
+
+			<div class="navbar-header">
+
+				<a class="navbar-brand"><img src="growthsource.png"
+					height="60px" width="190px"></a>
+			</div>
+			<div>
+				<strong><span id="date"
+					style="float: right; font-size: 20px; color: #0F1036;"></span></strong>
+			</div>
+
+		</nav>
+	</div>
+
+	<br>
+
+	<div align="center" class="options">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+
+			<h3
+				style="font-family: Times New Roman, Times, serif; font-size: 30px;">
+				<strong>Add your Existing Liability</strong>
+			</h3>
+			<br>
+			<form action="#" th:action="@{/submitAsset}"
+				th:object="${assetTable}" method="post" id="submitForm">
+
+				<table class="table table-hover table-responsive" id="table"
+					style="background-color: #fff; border: 1px solid black;width:100%;">
+					<thead class="table table-dark">
+
+						<tr height="75px" style="background-color: #00004d;">
+
+							<th style="font-size: 20px;width:100%"><strong>Asset</strong></th>
+							<th style="font-size: 20px;width:100%"><strong>Asset Value</strong></th>
+							<th style="font-size: 20px;width:100%"><strong>Rate(%)</strong></th>
+							<th style="font-size: 20px;width:100%"><strong>LTV (%)</strong></th>
+							<th style="font-size: 20px;width:100%"><strong>Tenure (Days)</strong></th>
+							<th><button type="button" class="btn btn-success btn-xs add" id="add"
+								name="add">+</button></th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<!-- <td><input type="checkbox" th:value="2"
+								style="width: 20px; height: 20px;" /></td> -->
+							<td><select id="asset_0" th:field="*{asset[0].assetname}"
+								class="form-control DropDown" style="width: 14em" name="asset0"
+								required>
+									<option value="">Select</option>
+									<option value="1">Cash,Bank Balance,FD</option>
+									<option value="2">Securities and MFs</option>
+									<option value="3">Gold and Jewellery</option>
+									<option value="4">Business Loan</option>
+									<option value="5">Row Material</option>
+									<option value="6">Machinery and Equipment</option>
+									<option value="7">Commercial Vehicle</option>
+									<option value="8">Commercial RE</option>
+									<option value="9">Warehouse</option>
+									<option value="10">Factory RE</option>
+									<option value="11">Land</option>
+									<option value="12">Residential RE</option>
+
+
+							</select></td>
+
+							<td><input type="number" id="amt_0"
+								th:field="*{asset[0].value}" class="form-control Value"
+								style="width: 10em" required pattern="^[0-9]*$" min=1></td>
+
+							<td><input type="number" step=any id="rate_0"
+								th:field="*{asset[0].rate}" class="form-control Rate"
+								style="width: 10em" required pattern="^[0-9]*$" min=0 max=100></td>
+
+							<td><input type="number" id="ltv_0" step=any
+								th:field="*{asset[0].ltv}" class="form-control LTV"
+								style="width: 10em" required pattern="^[0-9]*$" min=0 max=200></td>
+
+							<td><input type="number" id="tenure_0"
+								th:field="*{asset[0].tenure}" class="form-control Tenure"
+								style="width: 10em" required pattern="^[0-9]*$" min=0 max=3650></td>
+							<td></td>
+						
+						</tr>
+
+					</tbody>
+				</table>
+				<div class="col-md-1"></div>
+				<br>
+
+				<table>
+					<tr>
+						<td colspan=3></td>
+						
+					</tr>
+
+				</table>
+				
+				<div align="center">
+					<button type="submit" align="center" class="btn btn-info"
+						style="width: 10em;" id="submit" name="save">Submit</button>
+				</div>
+				<br> <br>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		function table() {
+			var empTab = document.getElementById('table');
+			var rowCnt = (empTab.rows.length) - 1;
+			var sec_val = [];
+			for (var i = 0; i < rowCnt; i++) {
+				var sec_val_var = $('#asset_' + i).val();
+				sec_val.push(sec_val_var);
+			}
+
+			$('#table tr:last')
+					.after(
+							'<tr><td><select id="asset_'+rowCnt+'" th:field="*{asset['+rowCnt+'].assetname}" class="form-control selectassets" style="width: 14em" name="asset['+rowCnt+'].assetname" required></select></td><td><input type="number" name="asset['+rowCnt+'].value" id="amt_'+rowCnt+'" th:field="*{asset['+rowCnt+'].value}" class="form-control Value" style="width: 10em" required pattern="^[0-9]*$" min=0></td><td><input type="number" step=any name="asset['+rowCnt+'].rate" id="rate_'+rowCnt+'" th:field="*{asset['+rowCnt+'].rate}" class="form-control Rate"  style="width: 10em;" pattern="^[0-9]*$" min=0></td><td><input type="number" name="asset['+rowCnt+'].ltv" id="ltv_'+rowCnt+'" step=any th:field="*{asset['+rowCnt+'].ltv}" class="form-control LTV" style="width: 10em" required pattern="^[0-9]*$" min=0></td><td><input type="number"  name="asset['+rowCnt+'].tenure" id="tenure_'+rowCnt+'" th:field="*{asset['+rowCnt+'].tenure}" class="form-control Tenure" style="width: 10em" required pattern="^[0-9]*$" min=0></td><td><button type="button" class="btn btn-danger delete" "id="remove_'+rowCnt+'" name="save">-</button></td></tr>'); //$('#tablebody').append(row);
+
+			$.ajax({
+				type : "POST",
+				url : "/api/asset/",
+				async : false,
+				success : function(data) {
+					var List = JSON.parse(data);
+					$('#asset_' + rowCnt).empty();
+					$('#asset_' + rowCnt).append(
+							'<option value="">Select</option>');
+					for (i in List) {
+						$('#asset_' + rowCnt).append(
+								'<option value="' + List[i].id + '">'
+										+ List[i].assetName + '</option>');
+					}
+					for (j in List) {
+						for (i = 0; i < sec_val.length; i++) {
+							var selected = sec_val[i];
+							var optionid = List[j].id;
+
+							if ((selected) == (optionid)) {
+
+								$(
+										"#asset_" + rowCnt + " option[value='"
+												+ selected + "']").remove();
+
+							}
+						}
+					}
+				}
+			});
+		}
+
+		// DELETE TABLE ROW.
+
+		$("#table").on("click", ".delete", function() {
+			var empTab = document.getElementById('table');
+			var rowCnt = (empTab.rows.length) - 1;
+			$(this).closest("tr").remove();
+			/* var w =rowCnt-1;
+			$('#add_'+w).show();
+			$( "p" ).parent( ".selected" ).show(); */
+
+		});
+
+		$(document).on('keyup', '.Value', function() {
+			if ($(this).val() > 999999999999999) {
+				$(this).val(99999999999999);
+			} else if ($(this).val() < 1) {
+				$(this).val(0);
+			}
+		});
+		$(document).on('keyup', '.Rate', function() {
+			if ($(this).val() > 100) {
+				$(this).val(100);
+				alert("please Enter the Rate Between 0 to 100");
+			} else if ($(this).val() < 0) {
+				$(this).val(0);
+			}
+		});
+		$(document).on('keyup', '.LTV', function() {
+			if ($(this).val() > 200) {
+				$(this).val(200);
+				alert("please Enter the LTV Between 0 to 200");
+			} else if ($(this).val() < 0) {
+				$(this).val(0);
+			}
+		});
+		$(document).on('keyup', '.Tenure', function() {
+			if ($(this).val() > 3650) {
+				$(this).val(3650);
+				alert("please Enter the Tenure Between 0 to 3650");
+			} else if ($(this).val() < 0) {
+				$(this).val(0);
+			}
+		});
+
+		$(document).on('click', '.add', function() {
+			var empTab = document.getElementById('table');
+			var rowCnt = (empTab.rows.length) - 1;
+			if ($("#submitForm")[0].checkValidity()) {
+				
+				if(rowCnt < 12)	{
+					table();
+				}
+				else{
+					alert("You reached at maximum limit")
+				}
+			
+			} else {
+
+				$("#submitForm")[0].reportValidity();
+				
+				return 0;
+			}
+		});
+	</script>
+	<br><br><br>
+<div class="container-fluid">
+<div class="row text-center mt-5 mb-2">
+            <div class="col-md-12">
+                <p class="mb-0 text-black fs-12">Copyright &#xa9; Growth Source 2019, All Rights Reserved</p>
+            </div>
+        </div>
+</div>
+</body>
+
+
+</html>

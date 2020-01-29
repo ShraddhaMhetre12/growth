@@ -1,0 +1,245 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Growth Source Financial Technologies</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+	function calFunction() {
+		console.log("summary id" + $('#summaryIdInput').val());
+
+		var summaryId = $('#summaryIdInput').val();
+
+		$.ajax({
+			type : "POST",
+			url : "/api/calculate/" + summaryId,
+			async : false,
+			data : summaryId,
+			success : function(data) {
+				$('#calculate').hide();
+
+				var response = JSON.parse(data);
+
+				var displayMinrate = '<tr align="center">' + '<td>'
+						+ response.minrate + ' % </td></tr>';
+				var displayMaxLTV = '<tr align="center">' + '<td>' + '-'
+						+ '</td></tr>';
+				var displayMaxLTV = '<tr align="center">' + '<td>'
+						+ response.maxltv + ' % ' + '</td></tr>';
+				$('#weightedAvgdiv').show();
+
+				$('#weightageGSFTBody').empty();
+				$('#weightageABCDBody').empty();
+
+				$('#weightageGSFTBody').append(displayMinrate);
+
+				$('#weightageABCDBody').append(displayMaxLTV);
+
+			},
+			error : function(data) {
+				successmessage = 'Error';
+
+			},
+			dataType : "text"
+		});
+	}
+</script>
+</head>
+<body style="background-color: #fff;">
+	<div class="container-fluid" style="background-color: #dedede">
+		<nav class="navbar navbar-default">
+
+			<div class="navbar-header">
+
+				<a class="navbar-brand"><img src="growthsource.png"
+					height="60px" width="190px"></a>
+			</div>
+			<div>
+				<strong><span id="date"
+					style="float: right; font-size: 20px; color: #0F1036;"></span></strong>
+			</div>
+
+		</nav>
+	</div>
+
+	<br>
+	<div>
+		<div th:with="summaryId=${summaryId}"></div>
+		<form action="#" th:action="@{/calculate}" th:object="${summaryId}">
+
+			<input type='hidden' name='summaryIdInput' id='summaryIdInput'
+				th:value='${summaryId}' />
+
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-sm-12 col-md-4">
+						<h6 class="text-center">Customer Input</h6>
+						<table class="table table-hover table-responsive"
+							style="border: 1px solid black;">
+							<thead style="background-color: #00004d; width:100%">
+								<tr>
+
+									<th style="color: white; width: 40%">Asset</th>
+									<th style="color: white; width: 20%">Rate</th>
+									<th style="color: white; width: 20%">LTV</th>
+									<th style="color: white; width: 20%">Tenure</th>
+									<th style="color: white; width: 20%">Value</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="assetmaster : ${assetTable}">
+									<td th:text="${assetmaster.assetId.assetName}">Asset</td>
+									<td th:text="${assetmaster.rate}">Rate</td>
+									<td th:text="${assetmaster.ltv}">LTV</td>
+									<td th:text="${assetmaster.tenure}">Tenure</td>
+									<td th:text="${assetmaster.value}">Value</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-sm-12 col-md-4">
+						<h6 class="text-center">GSFT</h6>
+						<table class="table table-hover table-responsive"
+							style="border: 1px solid black; width: 100%;">
+							<thead style="background-color: #00004d;">
+								<tr>
+
+									<th style="color: white; width: 40%">Asset</th>
+									<th style="color: white; width: 25%">Rate</th>
+									<th style="color: white; width: 25%">LTV</th>
+									<th style="color: white; width: 25%">Tenure</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="loanGsft : ${loanCompanyMap.get('GSFT')}">
+									<td th:text="${loanGsft.assetId.assetName}">Asset</td>
+									<td th:text="${loanGsft.rate}">Rate</td>
+									<td th:text="${loanGsft.ltv}">LTV</td>
+									<td th:text="${loanGsft.tenure}">Tenure</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+
+					<div class="col-sm-12 col-md-4">
+						<h6 class="text-center">KVB</h6>
+						<table class="table table-hover table-responsive"
+							style="border: 1px solid black; width: 100%;">
+							<thead style="background-color: #00004d;">
+								<tr>
+
+									<th style="color: white; width: 40%;">Asset</th>
+									<th style="color: white; width: 25%;">Rate</th>
+									<th style="color: white; width: 25%;">LTV</th>
+									<th style="color: white; width: 25%;">Tenure</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="loanAbcd : ${loanCompanyMap.get('ABCD')}">
+									<td style="width: 20%;" th:text="${loanAbcd.assetId.assetName}">Asset</td>
+									<td style="width: 20%;" th:text="${loanAbcd.rate}">Rate</td>
+									<td style="width: 20%;" th:text="${loanAbcd.ltv}">LTV</td>
+									<td style="width: 20%;" th:text="${loanAbcd.tenure}">Tenure</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<br> <br> <br>
+
+
+		<div class="container-fluid" id="weightedAvgdiv" style="display: none"
+			align="center">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-4">
+					<table class="table table-hover" align="center"
+						style="border: 1px solid black;">
+						<thead>
+							<tr style="background-color: #000034;" align="center">
+								<th style="color: white">Minimum Rate</th>
+							</tr>
+						</thead>
+
+						<tbody id='weightageGSFTBody'>
+
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-4">
+					<table class="table table-hover" align="center"
+						style="border: 1px solid black;">
+						<thead style="background-color: #000034;" align="center">
+
+							<tr>
+
+								<th style="color: white">Maximum LTV</th>
+
+							</tr>
+						</thead>
+						<tbody id='weightageABCDBody'>
+
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</div>
+
+		<div class="col-sm-12" style="text-align: center;">
+
+
+			<input type="button" value="Calculate" id="calculate"
+				class="btn btn-primary btn-lg" onclick="javascript:calFunction();" />
+
+
+
+		</div>
+	</div>
+	<br>
+<br>
+<br>
+	<br>
+	<br>
+
+	<div class="container-fluid">
+		<div class="row text-center mt-5 mb-2">
+			<div class="col-md-12">
+				<p class="mb-0 text-black fs-12">Copyright &#xa9; Growth Source
+					2019, All Rights Reserved</p>
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

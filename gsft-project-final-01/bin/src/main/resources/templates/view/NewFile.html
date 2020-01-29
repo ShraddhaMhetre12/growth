@@ -1,0 +1,91 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>GrowthSourceFT</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div align="center" class="container">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h2>Asset List</h2>
+		
+		<br><br>
+			<table class="table table-hover">
+			<thead class="table table-dark" >
+				<tr>
+					
+					<th>Asset</th>
+					<th>Rate</th>
+					<th>LTV</th>
+					<th>Tenure</th>
+					<th>Value</th>
+				</tr>
+			</thead>	
+			<tbody>
+				<tr th:each="assetmaster : ${assetTable}">
+					<td th:text="${assetmaster.assetname}">Asset</td>
+					<td th:text="${assetmaster.rate}">Rate</td>
+					<td th:text="${assetmaster.ltv}">LTV</td>
+					<td th:text="${assetmaster.tenure}">Tenure</td>
+					<td th:text="${assetmaster.value}">Value</td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+			<div class="col-md-2"></div>
+	</div>
+	
+	<!-- <div align="center" class="container">
+	<div class="col-md-1"></div>
+	<div class="col-md-9">
+		 <h2>Master Table</h2>
+		
+		<br><br>
+			<table class="table table-hover">
+			<thead class="table table-dark" >
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th  colspan="3">GSFT</th>
+					<th  colspan="3">KVB</th>
+				</tr>
+				<tr>
+					
+					
+					<th>Sr No</th>
+					<th>Asset</th>
+					<th>Rate (%)</th>
+					<th>LTV (%)</th>
+					<th>Tenure (Yr)</th>
+					<th>Rate (%)</th>
+					<th>LTV (%)</th>
+					<th>Tenure (Yr)</th>
+				</tr>
+				
+			</thead>	
+			<tbody>
+				<tr th:each="mastertable : ${masterTable}">
+					<td th:text="${mastertable.masterid}">Sr No</td>
+					<td th:text="${mastertable.assetname}">Asset</td>
+					<td th:text="${mastertable.gsftrate}">Rate</td>
+					<td th:text="${mastertable.gsftltv}">LTV</td>
+					<td th:text="${mastertable.gsfttenure}">Tenure</td>
+					<td th:text="${mastertable.kvbrate}">Rate</td>
+					<td th:text="${mastertable.kvbltv}">LTV</td>
+					<td th:text="${mastertable.kvbtenure}">Tenure</td>
+				</tr>
+			</tbody>
+			</table>
+			</div>
+			<div class="col-md-1"></div>
+	</div>-->
+	
+</body>
+</html>

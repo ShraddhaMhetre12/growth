@@ -1,0 +1,203 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>GrowthSource FT</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div align="center">
+	<div class="col-md-2"></div>
+			<div class="col-md-8">
+	
+	<h2>Asset list</h2>
+	<br>
+	<form action="#" th:action="@{/submitAsset}" th:object="${assetTable}"
+		method="post">
+
+	<table class="table table-hover table table-striped"
+					style="background-color: rgb(161, 224, 243); padding: 5px; border-collapse: collapse">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Asset</th>
+				<th>Asset Value</th>
+				<th>Rate</th>
+				<th>LTV</th>
+				<th>Tenure</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+					<td>
+					<input type="checkbox" th:value="2" style="width: 20px; height: 20px;"/></td>
+					<td><select id="assetname1" th:field="*{asset[0].assetname}"
+						class="form-control" style="width:14em" disabled>
+						<option value="none">Select</option>
+						<option value="Cash,Bank Balnce,FD">Cash,Bank Balnce,FD</option>
+						<option value="Securities and MFs">Securities and MFs</option>
+						<option value="Gold and Jewellery">Gold and Jewellery</option>
+						<option value="Gold and Jewellery">Business Loan</option>
+						<option value="Business Loan">Gold and Jewellery</option>
+						<option value="Row Material">Row Material</option>
+						<option value="Machinery and Equipment">Machinery and Equipment</option>
+						<option value="Commercial Vehicle">Commercial Vehicle</option>
+						<option value="Commercial RE">Commercial RE</option>
+						<option value="Warehouces">Warehouces</option>
+						<option value="Factory RE">Factory RE</option>
+						<option value="Land">Land</option>
+						<option value="Recidential RE">Recidential RE</option>
+					</select>
+					</td>
+				
+						<td><input type="number" id="rate" th:field="*{asset[0].value}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+						 <td><input type="number" id="rate" th:field="*{asset[0].rate}"
+							class="form-control" disabled style="width:8em"></td>
+					
+					 <td><input type="number" id="rate" th:field="*{asset[0].ltv}"
+							class="form-control" disabled style="width:8em"></td>
+					
+						 <td><input type="number" id="rate" th:field="*{asset[0].tenure}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+				</tr>
+					<tr>
+					<td>
+					<input type="checkbox" th:value="2" style="width: 20px; height: 20px;"/></td>
+					<td><select  id="assetname2" th:field="*{asset[1].assetname}"
+						class="form-control" style="width:14em" disabled>
+						<option value="none">Select</option>
+						<option value="Cash,Bank Balnce,FD">Cash,Bank Balnce,FD</option>
+						<option value="Securities and MFs">Securities and MFs</option>
+						<option value="Gold and Jewellery">Gold and Jewellery</option>
+						<option value="Gold and Jewellery">Business Loan</option>
+						<option value="Business Loan">Gold and Jewellery</option>
+						<option value="Row Material">Row Material</option>
+						<option value="Machinery and Equipment">Machinery and Equipment</option>
+						<option value="Commercial Vehicle">Commercial Vehicle</option>
+						<option value="Commercial RE">Commercial RE</option>
+						<option value="Warehouces">Warehouces</option>
+						<option value="Factory RE">Factory RE</option>
+						<option value="Land">Land</option>
+						<option value="Recidential RE">Recidential RE</option>
+					</select>
+					</td>
+				
+						<td><input type="number" id="rate" th:field="*{asset[1].value}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+						 <td><input type="number" id="rate" th:field="*{asset[1].rate}"
+							class="form-control" disabled style="width:8em"></td>
+					
+					 <td><input type="number" id="rate" th:field="*{asset[1].ltv}"
+							class="form-control" disabled style="width:8em"></td>
+					
+						 <td><input type="number" id="rate" th:field="*{asset[1].tenure}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+				</tr>
+				<tr>
+					<td>
+					<input type="checkbox" th:value="2" style="width: 20px; height: 20px;"/></td>
+					<td><select  id="assetname2" th:field="*{asset[2].assetname}"
+						class="form-control" style="width:14em" disabled>
+						<option value="none">Select</option>
+						<option value="Cash,Bank Balnce,FD">Cash,Bank Balnce,FD</option>
+						<option value="Securities and MFs">Securities and MFs</option>
+						<option value="Gold and Jewellery">Gold and Jewellery</option>
+						<option value="Gold and Jewellery">Business Loan</option>
+						<option value="Business Loan">Gold and Jewellery</option>
+						<option value="Row Material">Row Material</option>
+						<option value="Machinery and Equipment">Machinery and Equipment</option>
+						<option value="Commercial Vehicle">Commercial Vehicle</option>
+						<option value="Commercial RE">Commercial RE</option>
+						<option value="Warehouces">Warehouces</option>
+						<option value="Factory RE">Factory RE</option>
+						<option value="Land">Land</option>
+						<option value="Recidential RE">Recidential RE</option>
+					</select>
+					</td>
+				
+						<td><input type="number" id="rate" th:field="*{asset[2].value}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+						 <td><input type="number" id="rate" th:field="*{asset[2].rate}"
+							class="form-control" disabled style="width:8em"></td>
+					
+					 <td><input type="number" id="rate" th:field="*{asset[2].ltv}"
+							class="form-control" disabled style="width:8em"></td>
+					
+						 <td><input type="number" id="rate" th:field="*{asset[2].tenure}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+				</tr>
+					<tr>
+					<td>
+					<input type="checkbox" th:value="2" style="width: 20px; height: 20px;"/></td>
+					<td><select  id="assetname2" th:field="*{asset[3].assetname}"
+						class="form-control" style="width:14em" disabled>
+						<option value="none">Select</option>
+						<option value="Cash,Bank Balnce,FD">Cash,Bank Balnce,FD</option>
+						<option value="Securities and MFs">Securities and MFs</option>
+						<option value="Gold and Jewellery">Gold and Jewellery</option>
+						<option value="Gold and Jewellery">Business Loan</option>
+						<option value="Business Loan">Gold and Jewellery</option>
+						<option value="Row Material">Row Material</option>
+						<option value="Machinery and Equipment">Machinery and Equipment</option>
+						<option value="Commercial Vehicle">Commercial Vehicle</option>
+						<option value="Commercial RE">Commercial RE</option>
+						<option value="Warehouces">Warehouces</option>
+						<option value="Factory RE">Factory RE</option>
+						<option value="Land">Land</option>
+						<option value="Recidential RE">Recidential RE</option>
+					</select>
+					</td>
+				
+						<td><input type="number" id="rate" th:field="*{asset[3].value}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+						 <td><input type="number" id="rate" th:field="*{asset[3].rate}"
+							class="form-control" disabled style="width:8em"></td>
+					
+					 <td><input type="number" id="rate" th:field="*{asset[3].ltv}"
+							class="form-control" disabled style="width:8em"></td>
+					
+						 <td><input type="number" id="rate" th:field="*{asset[3].tenure}"
+							class="form-control" disabled style="width:8em" ></td>
+				
+				</tr>
+		</tbody>
+	</table>
+					<br>
+					<button type="submit" class="btn btn-success" style="width: 10em;"  id="save" name="save">Submit</button>
+
+					<button type="button" class="btn btn-success" style="width: 10em;" onclick="window.location.href='NewFile'">Check Result</button>
+
+
+			
+	
+	</form>
+	</div>
+	</div>
+</body>
+
+<script>
+ 
+        $('tr td:first-child input[type="checkbox"]').click(function () {
+            //enable/disable all except checkboxes, based on the row is checked or not
+            $(this).closest('tr').find(":input:not(:first)").attr('disabled', !this.checked);
+        });
+        
+    </script>
+</html>
